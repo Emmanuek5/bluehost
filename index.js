@@ -61,7 +61,7 @@ otp(filename)
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])
-    commun.communicate("709", appdata)
+    commun.communicate(appdata['cport'], appdata)
     if (appdata['main'] == "/?") {
         app.get("/", (req, res) => {
             res.render(appdata['urls']['1'])
