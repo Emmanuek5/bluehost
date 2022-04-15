@@ -57,7 +57,7 @@ function otp(file) {
 
 exports.start = function start(port, filename, route = false) {
     const appdata = file(filename)
-
+otp(filename)
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])
