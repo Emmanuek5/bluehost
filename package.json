@@ -1,0 +1,26 @@
+{
+  "name": "@andrew127/bluehost",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "devstart": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Emmanuek5/blusehost.git"
+  },
+  "author": "andrew127",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emmanuek5/blusehost/issues"
+  },
+  "homepage": "https://github.com/Emmanuek5/blusehost#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "isset-php": "^1.0.7",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {},
+  "description": ""
+}
