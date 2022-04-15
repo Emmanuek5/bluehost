@@ -45,10 +45,19 @@ function saver(newfile) {
     const filewrite = fs.writeFileSync(newfile, nesw)
 
 }
+function otp(file) {
+ 
+    var otp = rand(0,9999999999999999999999)
+       var fis = fs.readFileSync(file)
+       fis['otp'] = otp
+       var newf = JSON.stringify(fis)
+       fs.writeFileSync(file,newf)
 
+}
 
 exports.start = function start(port, filename, route = false) {
     const appdata = file(filename)
+
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])

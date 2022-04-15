@@ -47,8 +47,24 @@ exports.communicate = function communicate(port, data) {
     })
     app.get("/status", (req, res) => {
 
-        res.send("Online" + req.query.name)
+        res.send(data['status'])
     })
+    
+app.get("/requests",(req,res)=>{
+      if (isset(()=> req.query.otp)) {
+          var otp = req.query.otp
+        if (otp == data['otp']) {
+           var raw = fs.readFileSync(file)
+           res.json(JSON.parse(raw))
+        }else{
+      res.send("Incorrect Otp")
+        }  
+        
+      }else{
+          res.send("No Otp Found")
+      }
+
+})
     app.listen(port, () => {
         console.log("Communicator on port " + port)
     })
