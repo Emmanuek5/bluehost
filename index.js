@@ -20,7 +20,7 @@ function rand(min, max) {
   }
 
 
-commun.communicate("709")
+
 
 
 function file(file) {
@@ -31,6 +31,7 @@ function file(file) {
    
     return appdata
 }
+
 
 function saver(newfile) {
 
@@ -50,7 +51,7 @@ exports.start = function start(port,filename,route = false) {
       const urls = appdata['urls']
       console.log(appdata['name'])
       console.table(appdata['urls'])
-        
+    commun.communicate("709",appdata)
       if(appdata['main'] == "/?"){
   app.get("/",(req,res)=>{
            res.render(appdata['urls']['1'])

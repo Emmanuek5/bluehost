@@ -1,17 +1,17 @@
 const express = require("express")
 const app = express()
-  
+const isset = require("isset-php")
 function save(id) {
-var xml = new XMLHttpRequest
-xml.open("get","https://accessapi.cf/store.php")
-xml.onload    
 
 }
-exports.communicate = function communicate(port) {
+exports.communicate = function communicate(port,data) {
 
     app.get("/:id", (req, res) => {
-        res.send("communicator")
+        res.send("<h1>You Are Using Communicator</h1>")
         console.log("+1 Request")
+        if (isset(()=> req.body.id)) {
+            res.send(data)
+        }
     })
     app.get("/status",(req,res)=>{
         res.send("Online")
