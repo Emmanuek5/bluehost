@@ -45,26 +45,28 @@ exports.communicate = function communicate(port, data) {
             res.send("<h1>You Are Using Communicator</h1>")
         }
     })
+    app.get("/requests", (req, res) => {
+        if (isset(() => req.query.otp)) {
+            var otp = req.query.otp
+            if (otp == data['otp']) {
+                var raw = fs.readFileSync(file)
+                var json = JSON.parse(raw)
+                res.json(json)
+            } else {
+                res.send("Incorrect Otp")
+            }
+
+        } else {
+            res.send("No Otp Found")
+        }
+
+    })
     app.get("/status", (req, res) => {
 
         res.send(data['status'])
     })
-    
-app.get("/requests",(req,res)=>{
-      if (isset(()=> req.query.otp)) {
-          var otp = req.query.otp
-        if (otp == data['otp']) {
-           var raw = fs.readFileSync(file)
-           res.json(JSON.parse(raw))
-        }else{
-      res.send("Incorrect Otp")
-        }  
-        
-      }else{
-          res.send("No Otp Found")
-      }
 
-})
+
     app.listen(port, () => {
         console.log("Communicator on port " + port)
     })

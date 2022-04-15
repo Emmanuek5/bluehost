@@ -38,26 +38,20 @@ function saver(newfile) {
 
     var old = file(newfile)
     var id = rand(1, 99999999999)
+    var id2 = rand(1, 99999999999)
     old['id'] = id
+    old['otp'] = id2
     old['main'] = "/?"
 
     var nesw = JSON.stringify(old)
     const filewrite = fs.writeFileSync(newfile, nesw)
 
 }
-function otp(file) {
- 
-    var otp = rand(0,9999999999999999999999)
-       var fis = fs.readFileSync(file)
-       fis['otp'] = otp
-       var newf = JSON.stringify(fis)
-       fs.writeFileSync(file,newf)
 
-}
 
 exports.start = function start(port, filename, route = false) {
     const appdata = file(filename)
-otp(filename)
+
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])
@@ -93,7 +87,7 @@ otp(filename)
                 }
             })
         }
-        
+
         if (isset(() => appdata.third)) {
 
             app.get("/" + appdata.third, (req, res) => {
