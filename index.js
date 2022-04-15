@@ -54,7 +54,12 @@ exports.start = function start(port,filename,route = false) {
     commun.communicate("709",appdata)
       if(appdata['main'] == "/?"){
   app.get("/",(req,res)=>{
-           res.render(appdata['urls']['1'])
+      if(appdata.urls[1] == "app.ejs"){
+          res.send( "You Cannot Use This File")
+      }else{
+          res.render(appdata['urls']['1'])
+      }
+        
      })
 
      if (isset(() => appdata['second'])) {
@@ -83,6 +88,34 @@ exports.start = function start(port,filename,route = false) {
              }
          })
      }
+          if (isset(() => appdata.third)) {
+
+              app.get("/" + appdata.third, (req, res) => {
+                  if (isset(() => appdata.urls['3'])) {
+                      res.render(appdata['urls']['3'])
+                  } else {
+                      if (appdata['mode'] == "development") {
+                          res.send("No Source Is Found")
+                      } else {
+                          res.send("Error")
+                      }
+                  }
+              })
+          }
+          if (isset(() => appdata.fourth)) {
+
+              app.get("/" + appdata.fourth, (req, res) => {
+                  if (isset(() => appdata.urls['4'])) {
+                      res.render(appdata['urls']['4'])
+                  } else {
+                      if (appdata['mode'] == "development") {
+                          res.send("No Source Is Found")
+                      } else {
+                          res.send("Error")
+                      }
+                  }
+              })
+          }
      
     
     app.get("/:h", (req, res) => {
