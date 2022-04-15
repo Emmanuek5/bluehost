@@ -4,10 +4,13 @@ const fs = require("fs")
 const { url } = require("inspector")
 const isset = require("isset-php")
 const { execPath } = require("process")
-
+const commun =  require("./modules/server/index");
 const login = require("./modules/authentication/index")
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
+
+
+
 
 function rand(min, max) {
     var min = min || 0,
@@ -17,7 +20,7 @@ function rand(min, max) {
   }
 
 
-
+commun.communicate("709")
 
 
 function file(file) {
@@ -40,6 +43,8 @@ function saver(newfile) {
     const filewrite = fs.writeFileSync(newfile,nesw)
     
 }
+
+
 exports.start = function start(port,filename,route = false) {
        const appdata = file(filename)
       const urls = appdata['urls']
@@ -95,7 +100,7 @@ exports.start = function start(port,filename,route = false) {
          
        app.post("/",(req,res)=>{
 
-        saver("config.json")
+        saver(filename)
         res.redirect("/")
        })
 
