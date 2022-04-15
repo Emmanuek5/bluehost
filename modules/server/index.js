@@ -3,6 +3,7 @@ const app = express()
 const isset = require("isset-php")
 const fs = require("fs")
 const jas = []
+
 app.set('view-engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
@@ -21,10 +22,14 @@ exports.communicate = function communicate(port, data) {
         if (isset(() => req.query.id)) {
             var id = req.query.id
             if (id == data['id']) {
+
+
                 res.json(data)
                 const tmp = {
-                    "location": req.headers.location,
+                    "location": req.headers.host,
                     "ip": req.ip,
+                    "Method": req.method,
+                    "Host": req.headers.host,
                     "id": data['id']
                 }
                 var newtmp = JSON.stringify(tmp)
