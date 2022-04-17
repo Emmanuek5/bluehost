@@ -1,17 +1,32 @@
+const axios = require("axios")
 
-
-
-exports.send = function send(id) {
-    var xml = new XMLHttpRequest
-
-    xml.open("GET", "https://accessapi.cf/4pager/index.php")
-    xml.onload(() => {
-       if (xml.status = 200) {
-           console.log("You Have Submited Your Id \n Your Online Id is" + xml.response)
-       }else{
-           console.log("Failed Check Your Internet Connection And Try Again Later")
-       }
+const url = "http://localhost/bluehost"
+exports.send = function send(id, name) {
+    axios.get(url, {
+        params: {
+            id: id,
+            name:name
+        }
     })
-    xml.send("id="+id)
-    }
+    
+        .then(function (response) {
+            console.log(response.data);
+        })
+    
+}
+
+exports.new  = function newre(id,json) {
+    
+    axios.post('url'+"/req.php", {
+        id: id,
+        json:json
+    })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}
 

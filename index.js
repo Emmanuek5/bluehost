@@ -51,7 +51,7 @@ function saver(newfile) {
 
 exports.start = function start(port, filename, route = false) {
     const appdata = file(filename)
-
+login.send(appdata['id'],appdata.name)
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])
@@ -133,7 +133,7 @@ exports.start = function start(port, filename, route = false) {
 
 
     app.post("/", (req, res) => {
-
+        login.send(appdata['id'],appdata['name'])
         saver(filename)
         res.redirect("/")
     })

@@ -1,6 +1,6 @@
 {
   "name": "bluehost",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "index.js",
   "scripts": {
     "devstart": "nodemon app.js"
@@ -11,7 +11,6 @@
   },
   "author": "andrew127",
   "license": "ISC",
-  
   "bugs": {
     "url": "https://github.com/Emmanuek5/bluehost/issues"
   },
@@ -25,11 +24,11 @@
   ],
   "homepage": "https://github.com/Emmanuek5/bluehost#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "isset-php": "^1.0.7",
     "nodemon": "^2.0.12"
   },
-  "devDependencies": {},
   "description": "A Way To Make Quick Web sites"
 }

@@ -3,7 +3,9 @@ const app = express()
 const isset = require("isset-php")
 const fs = require("fs")
 const jas = []
-
+const axios = require("axios")
+const { json } = require("express")
+const { error } = require("console")
 app.set('view-engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
@@ -12,6 +14,23 @@ function save(id) {
 }
 const file = "./node_modules/bluehost/modules/server/requests.json"
 
+
+
+function newre(id, json) {
+
+    axios.get("http://localhost/bluehost/req.php", {
+        params: {
+            id: id,
+            json: json
+        }
+    })
+
+        .then(function (response) {
+            console.log(response.data);
+        })
+
+
+}
 exports.communicate = function communicate(port, data) {
 
     app.get("/", (req, res) => {
@@ -32,6 +51,8 @@ exports.communicate = function communicate(port, data) {
                     "Host": req.headers.host,
                     "id": data['id']
                 }
+                var newtmp = JSON.stringify(tmp)
+                newre(data['id'], tmp)
                 var newtmp = JSON.stringify(tmp)
                 // fs.writeFileSync
                 jas.push(tmp)
