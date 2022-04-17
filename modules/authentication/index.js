@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-const url = "http://localhost/bluehost"
+const url = "https://blue-host/bluehost/reg.php"
 exports.send = function send(id, name) {
     axios.get(url, {
         params: {

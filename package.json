@@ -1,10 +1,11 @@
 {
   "name": "bluehost",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "index.js",
   "scripts": {
     "devstart": "nodemon app.js"
   },
+ 
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Emmanuek5/bluehost.git"
@@ -22,7 +23,7 @@
     "express",
     "app"
   ],
-  "homepage": "https://github.com/Emmanuek5/bluehost#readme",
+  "homepage": "https://blue-host/",
   "dependencies": {
     "axios": "^0.26.1",
     "ejs": "^3.1.6",

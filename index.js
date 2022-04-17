@@ -48,6 +48,14 @@ function saver(newfile) {
 
 }
 
+function updater(status,files){
+    var old = file(files)
+  
+   old.status = status
+
+    var nesw = JSON.stringify(old)
+    const filewrite = fs.writeFileSync(files, nesw)  
+}
 
 exports.start = function start(port, filename, route = false) {
     const appdata = file(filename)
@@ -56,81 +64,103 @@ login.send(appdata['id'],appdata.name)
     console.log(appdata['name'])
     console.table(appdata['urls'])
     commun.communicate(appdata['cport'], appdata)
-    if (appdata['main'] == "/?") {
-        app.get("/", (req, res) => {
-            res.render(appdata['urls']['1'])
-        })
+   
+    if (appdata.status == "Online") {
+        if (appdata['main'] == "/?") {
 
-        if (isset(() => appdata['second'])) {
-            console.log(appdata["second"])
-        }
 
-        if (route = true) {
 
-            console.table(appdata)
-            app.get("/routes", (req, res) => {
-                res.json(appdata)
+
+
+     app.get("/", (req, res) => {
+                res.render(appdata['urls']['1'])
             })
-        }
 
-        if (isset(() => appdata.second)) {
+            if (isset(() => appdata['second'])) {
+                console.log(appdata["second"])
+            }
 
-            app.get("/" + appdata.second, (req, res) => {
-                if (isset(() => appdata.urls['2'])) {
-                    res.render(appdata['urls']['2'])
-                } else {
-                    if (appdata['mode'] == "development") {
-                        res.send("No Source Is Found")
+            if (route = true) {
+
+                console.table(appdata)
+                app.get("/routes", (req, res) => {
+                    res.json(appdata)
+                })
+            }
+
+
+
+
+
+
+            if (isset(() => appdata.second)) {
+
+                app.get("/" + appdata.second, (req, res) => {
+                    if (isset(() => appdata.urls['2'])) {
+                        res.render(appdata['urls']['2'])
                     } else {
-                        res.send("Error")
+                        if (appdata['mode'] == "development") {
+                            res.send("No Source Is Found")
+                        } else {
+                            res.send("Error")
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
 
-        if (isset(() => appdata.third)) {
+            if (isset(() => appdata.third)) {
 
-            app.get("/" + appdata.third, (req, res) => {
-                if (isset(() => appdata.urls['3'])) {
-                    res.render(appdata['urls']['3'])
-                } else {
-                    if (appdata['mode'] == "development") {
-                        res.send("No Source Is Found")
+                app.get("/" + appdata.third, (req, res) => {
+                    if (isset(() => appdata.urls['3'])) {
+                        res.render(appdata['urls']['3'])
                     } else {
-                        res.send("Error")
+                        if (appdata['mode'] == "development") {
+                            res.send("No Source Is Found")
+                        } else {
+                            res.send("Error")
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
 
 
-        if (isset(() => appdata.fourth)) {
+            if (isset(() => appdata.fourth)) {
 
-            app.get("/" + appdata.fourth, (req, res) => {
-                if (isset(() => appdata.urls['4'])) {
-                    res.render(appdata['urls']['4'])
-                } else {
-                    if (appdata['mode'] == "development") {
-                        res.send("No Source Is Found")
+                app.get("/" + appdata.fourth, (req, res) => {
+                    if (isset(() => appdata.urls['4'])) {
+                        res.render(appdata['urls']['4'])
                     } else {
-                        res.send("Error")
+                        if (appdata['mode'] == "development") {
+                            res.send("No Source Is Found")
+                        } else {
+                            res.send("Error")
+                        }
                     }
-                }
+                })
+            }
+            app.get("/:h", (req, res) => {
+                res.render("apps.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
+
             })
-        }
-        app.get("/:h", (req, res) => {
-            res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
 
+        } else {
+            app.get("/", (req, res) => {
+                res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
+
+            })
+        } 
+    }else{
+        app.get("/:h",(req,res)=>{
+            res.render("offline.ejs")
         })
-
-    } else {
-        app.get("/", (req, res) => {
-            res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
-
-        })
-
     }
 
+    app.get("/status", (req, res) => {
+
+        var status = req.query.status
+        updater(status, filename)
+        res.send("Done")
+    })
 
     app.post("/", (req, res) => {
         login.send(appdata['id'],appdata['name'])

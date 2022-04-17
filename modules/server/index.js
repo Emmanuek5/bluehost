@@ -18,7 +18,7 @@ const file = "./node_modules/bluehost/modules/server/requests.json"
 
 function newre(id, json) {
 
-    axios.get("http://localhost/bluehost/req.php", {
+    axios.get("https://blue-host/req.php", {
         params: {
             id: id,
             json: json
