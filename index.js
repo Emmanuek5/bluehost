@@ -48,23 +48,26 @@ function saver(newfile) {
 
 }
 
-function updater(status,files){
+function updater(status, files) {
     var old = file(files)
-  
-   old.status = status
+
+    old.status = status
 
     var nesw = JSON.stringify(old)
-    const filewrite = fs.writeFileSync(files, nesw)  
+    const filewrite = fs.writeFileSync(files, nesw)
 }
 
 exports.start = function start(port, filename, route = false) {
     const appdata = file(filename)
-login.send(appdata['id'],appdata.name)
+
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])
     commun.communicate(appdata['cport'], appdata)
-   
+
+    if (isset(() => appdata.id)) {
+        login.send(appdata['id'], appdata['name'])
+    }
     if (appdata.status == "Online") {
         if (appdata['main'] == "/?") {
 
@@ -72,7 +75,7 @@ login.send(appdata['id'],appdata.name)
 
 
 
-     app.get("/", (req, res) => {
+            app.get("/", (req, res) => {
                 res.render(appdata['urls']['1'])
             })
 
@@ -148,10 +151,13 @@ login.send(appdata['id'],appdata.name)
                 res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
 
             })
-        } 
-    }else{
-        app.get("/:h",(req,res)=>{
-            res.render("offline.ejs")
+        }
+    } else {
+        app.get("/:h", (req, res) => {
+            res.render("offline.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
+        })
+        app.get("/", (req, res) => {
+            res.render("offline.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
         })
     }
 
@@ -163,8 +169,9 @@ login.send(appdata['id'],appdata.name)
     })
 
     app.post("/", (req, res) => {
-        login.send(appdata['id'],appdata['name'])
+
         saver(filename)
+
         res.redirect("/")
     })
 

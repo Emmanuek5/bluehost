@@ -1,6 +1,6 @@
 {
   "name": "bluehost",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "main": "index.js",
   "scripts": {
     "devstart": "nodemon app.js"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Emmanuek5/bluehost.git"
   },
-  "author": "andrew127",
+  "author": "blueobsidian",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Emmanuek5/bluehost/issues"
@@ -21,9 +21,11 @@
     "web",
     "template",
     "express",
-    "app"
+    "app",
+    "axios",
+    "replit"
   ],
-  "homepage": "https://blue-host/",
+  "homepage": "https://blue-host.ml/",
   "dependencies": {
     "axios": "^0.26.1",
     "ejs": "^3.1.6",
