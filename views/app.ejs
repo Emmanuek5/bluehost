@@ -9,29 +9,76 @@
 </head>
 <style>
     body{
-        background-color: blueviolet;
+        background-color:#395DE5;
     }
- 
+
+    h1{
+        
+        text-align:center;
+        font-size:50px;
+        position: absolute;
+        top: 200px;
+        right: 570px;
+
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .w3-card-4{
+        position: absolute;
+        top: 20%;
+        right: 37%;
+        width: 500px;
+        height: 400px;
+        background-color: #2DDCBC;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+    .woe{
+        position: absolute;
+        top: 650px;
+        left:1px;
+        font-size: 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
 </style>
 <body>
-    <br>
-    <br>
-    <br>
-    <center class="w3-container w3-card-4"><h1>Welcome To <%= name%>
-    </h1>
-    <h2>Thank You For Using Bluehost</h2>
-    <h2>This Server is running on Port <%=port%></h2>
-    <h2>This Project is in <%=mode%> Mode </h2>
-    <p>You Will See Errors On Your Homepage</p>
-<form action="/" method="post"> <button class="w3-btn w3-teal">Click Here</button></form>
-</center>
-   <div class="w3-container">
-        <p>Your Using The Bluehost Package</p>
-        <pre>
-              To Change This Go To your config.json file and add "/?" to your urls
-          </pre>
 
-   </div>
- 
+    <div class="w3-card-4 w3-hover-gey">
+
+        <div class="w3-container  w3-blue ">
+            <h2>User Creaton</h2>
+        </div>
+        <form action="start" method="post" class=" w3-container ">
+            <p>
+                <label><b>User Name</b></label>
+                <input class="w3-input" type="text" name="username">
+            </p>
+            <p>
+                <label><b>Password</b></label>
+                <input class="w3-input" type="password" name="password">
+            </p>
+            <p>
+                <label for=""><b>Email</b></label>
+                <input type="email" class="w3-input" name="email" id="">
+            </p>
+            <button class="w3-button w3-blue ">Start The Application</button>
+        </form>
+
+    </div>
+
+
+
+
+
+ <div class="w3-container woe">
+    <h2>Thank You For Using Bluehost</h2>
+    <h2>This Server is running on Port <%=port%>
+    </h2>
+    <h2>Communicator Is Running On Port <%=comm%></h2>
+    <h2>This Project is in <%=mode%> Mode </h2>
+    <h3>You Will See Errors On Your Homepage</h3>
+</div>
+
 </body>
 </html>

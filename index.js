@@ -1,12 +1,13 @@
 const express = require("express")
 const app = express()
-
+const back = require("./modules/backend/index")
 const fs = require("fs")
 const { url } = require("inspector")
 const isset = require("isset-php")
 const { execPath } = require("process")
 const commun = require("./modules/server/index");
 const login = require("./modules/authentication/index")
+const { default: axios } = require("axios")
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 
@@ -63,14 +64,11 @@ exports.start = function start(port, filename, route = false) {
     const urls = appdata['urls']
     console.log(appdata['name'])
     console.table(appdata['urls'])
-    commun.communicate(appdata['cport'], appdata)
 
-    if (isset(() => appdata.id)) {
-        login.send(appdata['id'], appdata['name'])
-    }
+
+   
     if (appdata.status == "Online") {
-        if (appdata['main'] == "/?") {
-
+        if (!appdata.id == "") {
 
 
 
@@ -142,13 +140,13 @@ exports.start = function start(port, filename, route = false) {
                 })
             }
             app.get("/:h", (req, res) => {
-                res.render("apps.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
+                res.render("apps.ejs", { name: appdata['name'], port: port, mode: appdata['mode'], comm: appdata['cport'] })
 
             })
 
         } else {
             app.get("/", (req, res) => {
-                res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
+                res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'], comm: appdata['cport'] })
 
             })
         }
@@ -168,11 +166,21 @@ exports.start = function start(port, filename, route = false) {
         res.send("Done")
     })
 
-    app.post("/", (req, res) => {
+    app.post("/start", async(req, res) => {
+        try {
+            const url = 'http://localhost:3200/users/create';
+            const data = { username: req.body.username, password: req.body.password, email: req.body.email };
+            // Specifying headers in the config object
+            const config = { 'content-type': 'application/json' };
+            const response = await axios.post(url, data, config);
+            console.log(response.data);
+            res.redirect("/")
 
-        saver(filename)
-
-        res.redirect("/")
+            saver(filename)
+        } catch (error) {
+            console.error(error);
+        }
+      
     })
 
 

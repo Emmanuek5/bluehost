@@ -1,12 +1,11 @@
 {
   "name": "bluehost",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "devstart": "nodemon app.js"
   },
- 
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Emmanuek5/bluehost.git"
@@ -29,10 +28,12 @@
   "homepage": "https://blue-host.ml/",
   "dependencies": {
     "axios": "^0.26.1",
+    "bcrypt": "^5.1.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "isset-php": "^1.0.7",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "passport": "^0.6.0"
   },
   "description": "A Way To Make Quick Web sites"
 }
