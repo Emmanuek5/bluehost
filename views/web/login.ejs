@@ -53,15 +53,26 @@
         .login-form input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .error-message {
+  color: red;
+  font-size: 14px;
+  margin: 20px 0;
+}
     </style>
 </head>
 
 <body>
     <div class="login-form">
+        <% if (messages.error) { %>
+        <div class="error-message">
+            <p><%= messages.error%></p>
+        </div>
+
+        <% } %>
         <h1>Login</h1>
-        <form action="/login" method="post">
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username"><br>
+        <form action="/users/login" method="post">
+            <label for="username">Email</label><br>
+            <input type="text" id="username" name="email"><br>
             <label for="password">Password:</label><br>
             <input type="password" id="password" name="password"><br><br>
             <input type="submit" value="Submit">

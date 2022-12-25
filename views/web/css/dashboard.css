@@ -1,0 +1,42 @@
+.dashboard {
+  display: flex;
+  width: 100%;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.sidebar {
+  background-color: #f1f1f1;
+  width: 25%;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  color: #333;
+}
+
+.content {
+  width: 75%;
+  padding: 20px;
+}

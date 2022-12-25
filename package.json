@@ -1,6 +1,6 @@
 {
   "name": "bluehost",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
@@ -29,11 +29,15 @@
   "dependencies": {
     "axios": "^0.26.1",
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
     "isset-php": "^1.0.7",
     "nodemon": "^2.0.12",
-    "passport": "^0.6.0"
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   },
   "description": "A Way To Make Quick Web sites"
 }
