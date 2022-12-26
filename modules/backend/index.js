@@ -3,9 +3,7 @@
 if (process.env.NODE_ENV == 'development') {
  require('dotenv').config()
 }
-    
-
-
+const database = "mongodb://localhost:27017/bluehost"
 const express = require('express')
 const app = express()
 const fs = require('fs')
@@ -15,6 +13,15 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const passportInit = require('./passport-config')
+const mongoose = require('mongoose')
+mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.set('strictQuery', true);
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function () {
+    console.log('Connected to database')
+})
 passportInit(passport, email => users.find(user => user.email === email), id => users.find(user => user.id === id))
 
 const users = JSON.parse(fs.readFileSync('data/users.json', 'utf-8'))
@@ -42,6 +49,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
+const userRouter = require('./routes/user')
+app.use('/user', userRouter)
 
 function save(params) {
     fs.writeFileSync('data/users.json', JSON.stringify(users))
@@ -50,77 +59,6 @@ function save(params) {
 
 
 
-
-app.get('/users', (req, res) => {
-    res.json(users)
-    save()
-})
-
-
-
-app.post('/users/create', async(req, res) => {
-
-   try {
-     
-    const salt = await bcrypt.genSalt()
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
-    req.body.password = hashedPassword
-
-       const user = {
-           name: req.body.username,
-           email: req.body.email,
-           password: req.body.password,
-
-           id: Date.now().toString()
-       }
-       users.push(user)
-       save()
-       res.status(201).send()
-   } catch (error) {
-    
-    res.status(500).send()
-   }
-   
-
-})
-
-app.get('/user/dashboard', checkAuthenticated, (req, res) => { 
-    res.render('web/dashboard.ejs', { name: req.user.name })
-
-})
-app.get("/user/login", checkNotAuthenticated, (req, res) => {
-
-res.render("web/login.ejs")
-
-
-})
-
-app.post('/users/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/user/dashboard',
-    failureRedirect: '/user/login',
-    failureFlash: true
-
-
-
-
-}))
-
-
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-
-    res.redirect('/user/login')
-}
-    
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/user/dashboard')
-    }
-    next()
-}
-    
 
 
 

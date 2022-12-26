@@ -35,6 +35,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
     "isset-php": "^1.0.7",
+    "mongoose": "^6.8.1",
     "nodemon": "^2.0.12",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
