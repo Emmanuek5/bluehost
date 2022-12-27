@@ -58,19 +58,18 @@
   font-size: 14px;
   margin: 20px 0;
 }
+
     </style>
+<%- include('partials/links') %>
+
 </head>
 
 <body>
-    <div class="login-form">
-        <% if (messages.error) { %>
-        <div class="error-message">
-            <p><%= messages.error%></p>
-        </div>
-
-        <% } %>
-        <h1>Login</h1>
+   
+ 
+        <%- include('partials/messages') %>
         <form action="/user/login" method="post">
+                <h1>Login</h1>
             <label for="username">Email</label><br>
             <input type="text" id="username" name="email"><br>
             <label for="password">Password:</label><br>

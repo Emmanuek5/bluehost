@@ -52,10 +52,6 @@ app.use(passport.session())
 const userRouter = require('./routes/user')
 app.use('/user', userRouter)
 
-function save(params) {
-    fs.writeFileSync('data/users.json', JSON.stringify(users))
-}
-
 
 
 

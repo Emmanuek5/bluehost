@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const userSchema = require('../models/user')
 const passportInit = require('../passport-config')
 passportInit(passport, email => users.find(user => user.email === email), id => users.find(user => user.id === id))
 const { checkAuthenticated, checkNotAuthenticated } = require('../functions/authfunc')
@@ -9,10 +10,22 @@ const fs = require('fs')
 const users = JSON.parse(fs.readFileSync('data/users.json', 'utf-8'))
 const bcrypt = require('bcrypt')
 
+function save(params) {
+    fs.writeFileSync('data/users.json', JSON.stringify(users))
+}
 
-router.get('/user', (req, res) => {
-    res.json(users)
-    save()
+
+
+router.get('/list',async(req, res) => {
+try {
+    const users = await userSchema.find()
+    res.send(users)
+}catch (error) {
+    res.status(500).send()
+}
+
+
+
 })
 
 router.post('/create', async (req, res) => {
@@ -23,16 +36,17 @@ router.post('/create', async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, salt)
         req.body.password = hashedPassword
 
-        const user = {
+        const user = new userSchema({
             name: req.body.username,
             email: req.body.email,
             password: req.body.password,
 
-            id: Date.now().toString()
-        }
+        })
         users.push(user)
         save()
+        userSchema.create(user)
         res.status(201).send()
+
     } catch (error) {
 
         res.status(500).send()
@@ -43,12 +57,12 @@ router.post('/create', async (req, res) => {
 
 router.get('/dashboard', checkAuthenticated, (req, res) => {
     
-    res.render('web/dashboard.ejs', { name: req.user.name })
+    res.render('dashboard.ejs', { name: req.user.name })
 
 })
 router.get("/login", checkNotAuthenticated, (req, res) => {
 
-    res.render("web/login.ejs")
+    res.render("login.ejs")
 
 
 })
@@ -73,14 +87,20 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     failureRedirect: '/user/login',
     failureFlash: true
 
-
-
-
 }))
 
+router.delete('/delete/:id', async(req, res) => {
+    try {
+        // 
+        const user = await userSchema.findByIdAndDelete(req.params.id)
+        if (!user) {
+            res.status(404).send()
+        }
+        res.send(user)
 
-router.delete('/delete', (req, res) => {
-
+        } catch (error) {
+        res.send(500).send()
+    }
 
 
 })

@@ -1,7 +1,6 @@
 .env
 node_modules
 config.json
-req.rest
 password.json
 users.json
 /.metadata/

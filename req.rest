@@ -1,0 +1,26 @@
+GET http://localhost:3200/user/list
+
+###
+
+POST http://localhost:3200/user/create
+Content-Type: application/json
+
+{
+  "username": "blueobsidian",
+  "password": "Andrew123#",
+  "email": "rccgheritageofgod@gmail.com"
+}
+
+###
+
+POST http://localhost:3200/users/login
+Content-Type: application/json
+
+{
+  "username": "blueobsidian",
+  "password": "Andrew123#"
+}
+
+###
+
+DELETE http://localhost:3200/user/delete/63a9c921beb10317b5ac6381
