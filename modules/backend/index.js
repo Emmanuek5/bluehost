@@ -45,6 +45,8 @@ app.use(session({
     saveUninitialized: false
 
 }))
+// change the views directory
+app.set('views',  'modules/backend/views')
 app.use(passport.initialize())
 app.use(passport.session())
 

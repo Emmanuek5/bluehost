@@ -2,25 +2,22 @@ const fs = require("fs")
 const test = require("./index")
 
 
-if(!fs.existsSync("config.json")) {
-    const data = {
-        "name": "Andrew",
-        "id":"",
-        "otp":"",
-        "url": "http://localhost",
-        "status": "Online",
-        "cport": "3000",
-        "main": "/?",
-        "second": "test",
-        "mode": "development",
-        "urls": {
-            "1": "index.ejs",
-            "2": "second.ejs"
-        }
-    }
-    fs.writeFileSync("config.json", JSON.stringify(data))
+if(!fs.existsSync("data/config.json")) {
+    const data = [{
+    "name": "Andrew",
+    "id": 83640454462,
+    "db_url": "mongodb://localhost:27017/test",
+    "otp": 28404815499,
+    "url": "http://localhost",
+    "status": "Online",
+    "cport": "3200",
+    "main": "/?",
+    "second": "test",
+    "mode": "development"
+}]
+    fs.writeFileSync("data/config.json", JSON.stringify(data))
 }
 
 
-test.start("8080","config.json",route = true)
-test.routes("config.json")
+test.start("8080","data/config.json",route = true)
+

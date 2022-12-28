@@ -1,6 +1,7 @@
 {
   "name": "bluehost",
   "version": "1.2.1",
+  "bin": "/bin/cli.js",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",

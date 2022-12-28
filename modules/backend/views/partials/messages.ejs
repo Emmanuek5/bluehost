@@ -1,0 +1,25 @@
+<script>
+   // This is a hack to make the alert close button work
+    // See: https://stackoverflow.com/questions/64808993/bootstrap-5-close-button-not-working
+    document.addEventListener('DOMContentLoaded', function () {
+        var close = document.getElementsByClassName('btn-close');
+        for (var i = 0; i < close.length; i++) {
+            close[i].addEventListener('click', function () {
+                var div = this.parentElement;
+                div.style.opacity = '0';
+                setTimeout(function () {
+                    div.style.display = 'none';
+                }, 600);
+            });
+        }
+    });
+</script>
+<div class="login-form">
+    <h1>Login</h1>
+    <% if (messages.error) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error</strong> <%= messages.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <% } %>

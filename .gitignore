@@ -4,3 +4,4 @@ config.json
 password.json
 users.json
 /.metadata/
+bin

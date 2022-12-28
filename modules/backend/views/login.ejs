@@ -16,6 +16,8 @@
             border-radius: 10px;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
             padding: 30px;
+            margin-top: 30px;
+            max-height: 500px;
         }
 
         .login-form h1 {
@@ -67,9 +69,9 @@
 <body>
    
  
-        <%- include('partials/messages') %>
+      
         <form action="/user/login" method="post">
-                <h1>Login</h1>
+               <%- include('partials/messages') %>
             <label for="username">Email</label><br>
             <input type="text" id="username" name="email"><br>
             <label for="password">Password:</label><br>

@@ -1,208 +1,67 @@
+if (process.env !== 'undefined') {
+    require('dotenv').config()
+}
+    
+
+
+
 const express = require("express")
 const app = express()
 const back = require("./modules/backend/index")
 const fs = require("fs")
+const functions = require("./functions/funtions.js")
+const passport = require('passport');
 const { url } = require("inspector")
 const isset = require("isset-php")
 const { execPath } = require("process")
-const commun = require("./modules/server/index");
-const login = require("./modules/authentication/index")
-const { default: axios } = require("axios")
-app.set('view-engine', 'ejs')
+const { exec } = require("child_process")
+const flash = require('express-flash')
+const session = require('express-session')
+
+
+routes.push(routesfile)
+app.use(express.json())
+app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
+app.set('view-engine', 'ejs')
+app.use(flash())
+app.use(session({
+    secret: fs.readFileSync('data/secret.txt', 'utf-8'),
+    resave: false,
+    saveUninitialized: false
+
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+// Web routes
+
+// User routes  
+
+fs.readdirSync('routes').forEach(file => {
+    if (file.endsWith('.js')) {
+     const route = require(`./routes/${file}`)
+     const path = `/${file.replace('.js', '')}`
+     app.use(path,route)
+
+}})
+// Webhook routes
 
 
 
 
-function rand(min, max) {
-    var min = min || 0,
-        max = max || Number.MAX_SAFE_INTEGER;
 
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+exports.start = function() { 
+    console.log("Starting server...");
 }
 
 
-
-
-
-function file(file) {
-
-    const data = fs.readFileSync(file)
-    const appdata = JSON.parse(data)
-
-
-    return appdata
-}
-
-
-function saver(newfile) {
-
-    var old = file(newfile)
-    var id = rand(1, 99999999999)
-    var id2 = rand(1, 99999999999)
-    old['id'] = id
-    old['otp'] = id2
-    old['main'] = "/?"
-
-    var nesw = JSON.stringify(old)
-    const filewrite = fs.writeFileSync(newfile, nesw)
-
-}
-
-function updater(status, files) {
-    var old = file(files)
-
-    old.status = status
-
-    var nesw = JSON.stringify(old)
-    const filewrite = fs.writeFileSync(files, nesw)
-}
-
-exports.start = function start(port, filename, route = false) {
-    const appdata = file(filename)
-
-    const urls = appdata['urls']
-    console.log(appdata['name'])
-    console.table(appdata['urls'])
-
-
-   
-    if (appdata.status == "Online") {
-        if (!appdata.id == "") {
+app.listen(3000, () => {
+    console.log("Server is running on port 3000")
+})   
 
 
 
 
-            app.get("/", (req, res) => {
-                res.render(appdata['urls']['1'])
-            })
-
-            if (isset(() => appdata['second'])) {
-                console.log(appdata["second"])
-            }
-
-            if (route = true) {
-
-                console.table(appdata)
-                app.get("/routes", (req, res) => {
-                    res.json(appdata)
-                })
-            }
-
-
-
-
-
-
-            if (isset(() => appdata.second)) {
-
-                app.get("/" + appdata.second, (req, res) => {
-                    if (isset(() => appdata.urls['2'])) {
-                        res.render(appdata['urls']['2'])
-                    } else {
-                        if (appdata['mode'] == "development") {
-                            res.send("No Source Is Found")
-                        } else {
-                            res.send("Error")
-                        }
-                    }
-                })
-            }
-
-            if (isset(() => appdata.third)) {
-
-                app.get("/" + appdata.third, (req, res) => {
-                    if (isset(() => appdata.urls['3'])) {
-                        res.render(appdata['urls']['3'])
-                    } else {
-                        if (appdata['mode'] == "development") {
-                            res.send("No Source Is Found")
-                        } else {
-                            res.send("Error")
-                        }
-                    }
-                })
-            }
-
-
-            if (isset(() => appdata.fourth)) {
-
-                app.get("/" + appdata.fourth, (req, res) => {
-                    if (isset(() => appdata.urls['4'])) {
-                        res.render(appdata['urls']['4'])
-                    } else {
-                        if (appdata['mode'] == "development") {
-                            res.send("No Source Is Found")
-                        } else {
-                            res.send("Error")
-                        }
-                    }
-                })
-            }
-            app.get("/:h", (req, res) => {
-                res.render("apps.ejs", { name: appdata['name'], port: port, mode: appdata['mode'], comm: appdata['cport'] })
-
-            })
-
-        } else {
-            app.get("/", (req, res) => {
-                res.render("app.ejs", { name: appdata['name'], port: port, mode: appdata['mode'], comm: appdata['cport'] })
-
-            })
-        }
-    } else {
-        app.get("/:h", (req, res) => {
-            res.render("offline.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
-        })
-        app.get("/", (req, res) => {
-            res.render("offline.ejs", { name: appdata['name'], port: port, mode: appdata['mode'] })
-        })
-    }
-
-    app.get("/status", (req, res) => {
-
-        var status = req.query.status
-        updater(status, filename)
-        res.send("Done")
-    })
-
-    app.post("/start", async(req, res) => {
-        try {
-            const url = 'http://localhost:3200/users/create';
-            const data = { username: req.body.username, password: req.body.password, email: req.body.email };
-            // Specifying headers in the config object
-            const config = { 'content-type': 'application/json' };
-            const response = await axios.post(url, data, config);
-            console.log(response.data);
-            res.redirect("/")
-
-            saver(filename)
-        } catch (error) {
-            console.error(error);
-        }
-      
-    })
-
-
-    if (port == "80") {
-
-        var url = appdata['url']
-    } else {
-        var url = appdata['url'] + ":" + port
-    }
-    app.listen(port, () => {
-        console.log('Server Started On Port ' + port + "\n" + "Server Address: " + url)
-    })
-}
-
-
-exports.routes = function routes(files) {
-
-    const appdata = file(files)
-    console.table(appdata)
-    app.get("/routes", (req, res) => {
-        res.json(appdata)
-    })
-
-
-}
