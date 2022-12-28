@@ -5,9 +5,9 @@ const test = require("./index")
 if(!fs.existsSync("data/config.json")) {
     const data = [{
     "name": "Andrew",
-    "id": 83640454462,
+   
     "db_url": "mongodb://localhost:27017/test",
-    "otp": 28404815499,
+    
     "url": "http://localhost",
     "status": "Online",
     "cport": "3200",

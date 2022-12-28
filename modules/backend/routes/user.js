@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+
+// get the user model from the main app
 const userSchema = require('../models/user')
 const passportInit = require('../passport-config')
 passportInit(passport, email => users.find(user => user.email === email), id => users.find(user => user.id === id))
