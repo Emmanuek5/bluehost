@@ -93,9 +93,9 @@ if (appdata.id = "undefined") {
 
 
 fs.readdirSync('routes').forEach(file => {
-    if (file.endsWith('.js')) {
+    if (file.endsWith('.routes.js')) {
      const route = require(`./routes/${file}`)
-     const path = `/${file.replace('.js', '')}`
+     const path = `/${file.replace('.routes.js', '')}`
      app.use(path,route)
 
 }})
