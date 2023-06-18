@@ -1,7 +1,0 @@
-.env
-node_modules
-config.json
-password.json
-users.json
-/.metadata/
-bin

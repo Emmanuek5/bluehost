@@ -1,6 +1,6 @@
 {
   "name": "bluehost",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "bin": "/bin/cli.js",
   "main": "index.js",
   "scripts": {
